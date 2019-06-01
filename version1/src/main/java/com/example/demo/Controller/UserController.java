@@ -49,7 +49,7 @@ public class UserController {
     public Flux <User> getAllUsers(){
         Flux<User> eUser=repository.findAll();
         List<User> user=new ArrayList<User>();
-        List<Node> children=processDocument(user.getClass());
+        List<Node> children=processDocument((new User()).getClass());
         Node node=new Node("",children,Node.Type.ROOT);
         ObjectMapper mapper=new ObjectMapper();
         for(User e:eUser.toIterable()){

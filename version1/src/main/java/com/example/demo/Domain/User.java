@@ -10,7 +10,8 @@ public class User {
     @Id
     private String userId;
     private String name;
-    //private Address address;
+
+   // private Address address;
     @pii
     private String ssn;
 
@@ -28,7 +29,7 @@ public class User {
     public User(String userId, String name/*, Address address*/, String ssn) {
         this.userId = userId;
         this.name = name;
-       // this.address = address;
+       //this.address = address;
         this.ssn = ssn;
     }
 
@@ -48,7 +49,7 @@ public class User {
         this.name = name;
     }
 
-    /*public Address getAddress() {
+   /* public Address getAddress() {
         return address;
     }
 

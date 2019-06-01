@@ -64,8 +64,7 @@ public class Crypt {
 
             if (childNode.type == Node.Type.DIRECT) {
                 try {
-                    Object o=crypt.apply(value);
-                    document.put(childNode.fieldName, ((Binary)o).getData());
+                    document.put(childNode.fieldName, crypt.apply(value));
                 } catch (Exception e) {
                     throw e;
                 }

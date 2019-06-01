@@ -8,15 +8,26 @@ import java.util.List;
 public class Address {
 
     @Id
-    private int id;
+    private String id;
     @pii
     private String houseNumber;
     private String street;
 
-    public Address(int id, String houseNumber, String street) {
+    public Address() {
+    }
+
+    public Address(String id, String houseNumber, String street) {
         this.id = id;
         this.houseNumber = houseNumber;
         this.street = street;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getHouseNumber() {
