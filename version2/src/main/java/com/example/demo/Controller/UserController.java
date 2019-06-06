@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Domain.User;
 
+import com.example.demo.Encryption.Decoder;
 import com.example.demo.Encryption.Encoder;
 import com.example.demo.Repository.UserDAL;
 import com.example.demo.Repository.UserDALImpl;
@@ -38,36 +39,13 @@ public class UserController {
         this.userDAL = userDAL;
     }
 
-    /* @RequestMapping(value = "", method = RequestMethod.GET)
-        @ResponseBody
-        public Flux <User> getAllUsers(){
-            Flux<User> eUser=repository.findAll();
-            List<User> user=new ArrayList<User>();
-            List<Node> children=processDocument((new User()).getClass());
-            Node node=new Node("",children,Node.Type.ROOT);
-            ObjectMapper mapper=new ObjectMapper();
-            for(User e:eUser.toIterable()){
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @ResponseBody
+    public Flux <Document> getAllUsers(){
+        return userDAL.findAllEUsers();
 
-                try {
-                    String jsonString=mapper.writeValueAsString(e);
-                    Document document= Document.parse(jsonString);
-
-                    cryptFields(document,node,new Decoder());
-
-                    String userString=mapper.writeValueAsString(document);
-                    User u=mapper.readValue(userString,User.class);
-                    user.add(u);
-                }
-
-                catch (IOException ex){
-                    ex.printStackTrace();
-                }
-
-            }
-
-            return Flux.fromIterable(user);
         }
-    */
+
    /* @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     @ResponseBody
     public Mono<Document> getUserById(@PathVariable String userId){
@@ -80,18 +58,7 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public void addNewUser(@RequestBody User user){
         LOG.info("Saving user.");
-        List<Node> children=processDocument(user.getClass());
-        Node node=new Node("",children, Node.Type.ROOT);
-        ObjectMapper mapper=new ObjectMapper();
-       try {
-            String jsonString=mapper.writeValueAsString(user);
-           Document document= Document.parse(jsonString);
-           cryptFields(document,node,new Encoder());
-            userDAL.addNewEUser(document);
-       }
-        catch (IOException e){
-            e.printStackTrace();
-        }
+        userDAL.addNewEUser(user);
 
         /*List<Node> children=processDocument(user.getClass());
 
